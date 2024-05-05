@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfire_cli/uihelper.dart';
-import 'package:flutterfire_cli/loginpage.dart';
+import 'package:flutterfire_cli/email%20auth/loginpage.dart';
 import 'package:flutterfire_cli/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

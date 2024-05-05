@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutterfire_cli/checkuser.dart';
 import 'package:flutterfire_cli/firebase_options.dart';
-import 'package:flutterfire_cli/loginpage.dart';
+import 'package:flutterfire_cli/email%20auth/loginpage.dart';
+import 'package:flutterfire_cli/phone%20auth/phoneauth.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
@@ -38,8 +39,8 @@ class MyApp extends StatelessWidget {
           displaySmall: GoogleFonts.pacifico(),
         ),
       ),
-      home: CheckUser(),
-      // home: const LoginPage(),
+      // home: CheckUser(),
+      home: PhoneAuth(),
     );
   }
 }

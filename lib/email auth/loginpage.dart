@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_cli/uihelper.dart';
-import 'package:flutterfire_cli/signuppage.dart';
+import 'package:flutterfire_cli/email%20auth/signuppage.dart';
 import 'package:flutterfire_cli/homepage.dart';
-import 'package:flutterfire_cli/forgotpassword.dart';
+import 'package:flutterfire_cli/email%20auth/forgotpassword.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
