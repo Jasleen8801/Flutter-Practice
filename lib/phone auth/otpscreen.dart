@@ -51,6 +51,11 @@ class _OTPScreenState extends State<OTPScreen> {
                 ),
               ),
             ),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: authenticateOTP,
+            child: const Text('Verify OTP'),
           )
         ]));
   }

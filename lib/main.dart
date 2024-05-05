@@ -5,6 +5,7 @@ import 'package:flutterfire_cli/checkuser.dart';
 import 'package:flutterfire_cli/firebase_options.dart';
 import 'package:flutterfire_cli/email%20auth/loginpage.dart';
 import 'package:flutterfire_cli/phone%20auth/phoneauth.dart';
+import 'package:flutterfire_cli/showdata.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
@@ -40,7 +41,8 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // home: CheckUser(),
-      home: PhoneAuth(),
+      // home: PhoneAuth(),
+      home: ShowData(),
     );
   }
 }

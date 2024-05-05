@@ -15,12 +15,12 @@ class _PhoneAuthState extends State<PhoneAuth> {
   authenticatePhone() async {
     await FirebaseAuth.instance.verifyPhoneNumber(
       verificationCompleted: (PhoneAuthCredential credential) async {
-        // await FirebaseAuth.instance.signInWithCredential(credential);
+        await FirebaseAuth.instance.signInWithCredential(credential);
       },
       verificationFailed: (FirebaseAuthException e) {
-        // if (e.code == 'invalid-phone-number') {
-        //   print('The provided phone number is not valid.');
-        // }
+        if (e.code == 'invalid-phone-number') {
+          print('The provided phone number is not valid.');
+        }
       },
       codeSent: (String verificationId, int? resendToken) async {
         Navigator.pushReplacement(
