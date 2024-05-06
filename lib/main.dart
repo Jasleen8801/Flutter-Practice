@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutterfire_cli/adddata.dart';
 import 'package:flutterfire_cli/checkuser.dart';
 import 'package:flutterfire_cli/firebase_options.dart';
 import 'package:flutterfire_cli/email%20auth/loginpage.dart';
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
       ),
       // home: CheckUser(),
       // home: PhoneAuth(),
-      home: ShowData(),
+      // home: ShowData(),
+      home: AddData(),
     );
   }
 }

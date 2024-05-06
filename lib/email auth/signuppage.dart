@@ -52,44 +52,59 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   signup2(String email, String password) async {
-    if(email=="" && password=="" && pickedImage==null){
-      return showDialog(context: context, builder: (BuildContext context){
-        return AlertDialog(
-          title: Text("Enter Required Fields"),
-          actions: [
-            TextButton(onPressed: (){
-              Navigator.pop(context);
-            }, child: Text("OK")
-            )
-          ],
-        );
-      });
+    if (email == "" && password == "" && pickedImage == null) {
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Enter Required Fields"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("OK"))
+              ],
+            );
+          });
     } else {
       UserCredential? userCredential;
-      try{
-        userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      try {
+        userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
           email: email,
           password: password,
-        ).then((value) {
+        )
+            .then((value) {
           uploadData();
         });
-      }catch(e) {
+      } catch (e) {
         log(e.toString());
       }
     }
   }
 
-uploadData() async {
-    try{
-      final ref = FirebaseStorage.instance.ref().child("profileImages").child("${DateTime.now()}.jpg");
-      await ref.putFile(pickedImage!);
-      final url = await ref.getDownloadURL();
-      await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).set({
-        "email": emailController.text,
-        "profileImage": url,
+  uploadData() async {
+    try {
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child("profileImages")
+          .child(emailController.text.toString())
+          .putFile(pickedImage!);
+      TaskSnapshot taskSnapshot = await ref;
+      final url = await taskSnapshot.ref.getDownloadURL();
+      FirebaseFirestore.instance
+          .collection("Users")
+          .doc(emailController.text.toString())
+          .set({"Email": emailController.text.toString(), "Image": url}).then(
+              (value) {
+        log("User Added Successfully");
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MyHomePage(title: "Homepage")));
       });
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage(title: "Homepage")));
-    } on FirebaseException catch(e){
+    } on FirebaseException catch (e) {
       log(e.toString());
     }
   }
@@ -119,14 +134,14 @@ uploadData() async {
   }
 
   pickImage(ImageSource imageSource) async {
-    try{
+    try {
       final photo = await ImagePicker().pickImage(source: imageSource);
-      if(photo==null) return;
+      if (photo == null) return;
       final tempImage = File(photo.path);
       setState(() {
         pickedImage = tempImage;
       });
-    } catch(e){
+    } catch (e) {
       log(e.toString());
     }
   }
@@ -149,14 +164,15 @@ uploadData() async {
                         return showAlertBox();
                       });
                 },
-                child: pickedImage!=null ? CircleAvatar(
-                  radius: 80,
-                  backgroundImage: FileImage(pickedImage!),
-                ) : CircleAvatar(
-                  radius: 80,
-                  child: Icon(Icons.add_a_photo),
-                )
-            ),
+                child: pickedImage != null
+                    ? CircleAvatar(
+                        radius: 80,
+                        backgroundImage: FileImage(pickedImage!),
+                      )
+                    : CircleAvatar(
+                        radius: 80,
+                        child: Icon(Icons.add_a_photo),
+                      )),
             UiHelper.CustomTextField(
                 emailController, "Email", Icons.mail, false),
             UiHelper.CustomTextField(
@@ -166,6 +182,10 @@ uploadData() async {
             //   signup(emailController.text.toString(),
             //       passwordController.text.toString());
             // }, "Sign Up"),
+            UiHelper.CustomButton(() {
+              signup2(emailController.text.toString(),
+                  passwordController.text.toString());
+            }, "Sign Up"),
           ],
         ));
   }
